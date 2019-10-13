@@ -1,3 +1,5 @@
 Click==7.0
 provit==1.0.2
 xmltodict==0.12.0
+requests==2.22.0
+tqdm==4.36.1
