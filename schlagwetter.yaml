@@ -1,0 +1,11 @@
+# schlagwetter agent file for provit
+# to be put in ~/.provit/agents/schlagwetter.yaml
+homepage:
+- https://github.com/olf42/schlagwetter
+name:
+- schlagwetter
+slug: schlagwetter_0.1
+type: SoftwareAgent
+version:
+- 0.1
+
