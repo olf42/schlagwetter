@@ -1,3 +1,4 @@
 Data_Ungluecke_2019-08-13.xml
 *.prov
 *.json
+__pycache__/*
