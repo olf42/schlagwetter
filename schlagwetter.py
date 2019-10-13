@@ -34,6 +34,7 @@ CARD_KEYS = [
     "no_of_dead",
     "initial_cause",
     "result",
+    "name"
 ]
 
 
@@ -82,6 +83,19 @@ def iterate_json_file(json_data_file):
         for accident in iterate_accidents(data):
             yield accident
 
+def extract_amount(accident, base_key):
+    """
+    Get the amound of wounded/dead people from the accident data.
+    """
+    if not base_key in accident.keys():
+        return 0
+    else:
+        if len(accident[base_key].keys()) == 2:
+            return int(accident[base_key][f"{base_key}_min"])
+        else:
+            return int(list(accident[base_key].values())[0])
+
+
 
 def extract_top_trumps_data(accident, card_keys=CARD_KEYS):
     """
@@ -89,13 +103,11 @@ def extract_top_trumps_data(accident, card_keys=CARD_KEYS):
     """
     card = dict.fromkeys(card_keys)
 
-    if not "Tote" in accident.keys():
-        card["no_of_dead"] = 0
-    else:
-        if len(accident["Tote"].keys()) == 2:
-            card["no_of_dead"] = accident["Tote"]["Tote_min"]
-        else:
-            card["no_of_dead"] = list(accident["Tote"].values())[0]
+    card["no_of_dead"] = extract_amount(accident, "Tote")
+    card["no_of_wounded"] = extract_amount(accident, "Verletzte")
+    card["date"] = accident["Datumstext"]
+    card["location"] = accident["Ort_Index"]
+    card["name"] = accident["Bergwerke_Index"]
 
     return card
 
